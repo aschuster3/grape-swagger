@@ -75,7 +75,7 @@ module GrapeSwagger
 
         def nested_definitions(name, params, properties)
           loop do
-            nested_name = params.bsearch { |x| x[:name].include?('[') }
+            nested_name = params.bsearch { |x| x[:name].to_s.include?('[') }
             return if nested_name.nil?
 
             nested_name = nested_name[:name].split('[').first
