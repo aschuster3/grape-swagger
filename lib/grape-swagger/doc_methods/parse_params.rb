@@ -26,6 +26,7 @@ module GrapeSwagger
           document_array_param(value_type)
           document_default_value(settings)
           document_range_values(settings)
+          document_example(settings)
           document_required(settings)
 
           @parsed_param
@@ -60,6 +61,10 @@ module GrapeSwagger
           else
             @parsed_param[:type] = data_type
           end
+        end
+
+        def document_example(settings)
+          @parsed_param[:example] = settings[:example] if settings[:example].present?
         end
 
         def document_array_param(value_type)

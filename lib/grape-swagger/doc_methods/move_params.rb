@@ -96,7 +96,7 @@ module GrapeSwagger
         private
 
         def build_body_parameter(response, name = false)
-          entity = response[:schema] ? parse_model(response[:schema]['$ref']) : name
+          entity = response[:schema] ? parse_model(response[:schema]['$ref']) : 'body'
           body_param = {}
           body_param.tap do |x|
             x[:name] = entity
@@ -140,17 +140,15 @@ module GrapeSwagger
         end
 
         def property_keys
-          [:type, :format, :description, :minimum, :maximum, :items]
+          [:type, :format, :description, :minimum, :maximum, :items, :example]
         end
 
         def movable?(param)
-          return true if param[:in] == 'body' || param[:in] == 'path'
-          false
+          param[:in] == 'body'
         end
 
         def deletable?(param)
-          return true if movable?(param) && param[:in] == 'body'
-          false
+          movable?(param)
         end
 
         def should_move?(params)
